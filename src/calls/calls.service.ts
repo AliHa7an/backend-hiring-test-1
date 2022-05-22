@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { HttpException, Inject, Injectable } from '@nestjs/common';
 import { InjectTwilio, TwilioClient } from 'nestjs-twilio';
 import { CALL_MODEL } from './call.provider';
 import { Model } from 'mongoose';
@@ -79,6 +79,7 @@ export class CallsService {
           });
         } catch (err) {
           console.log(err);
+          throw new HttpException(err, 403);
         }
         return call;
       } else {
